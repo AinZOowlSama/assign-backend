@@ -3,8 +3,7 @@ import { verify } from "jsonwebtoken";
 import type { JWTPayload } from "@repo/types";
 
 // ─── Hono Context Type Augmentation ──────────────────────────────────────────
-// This tells TypeScript what shape c.get('user') will be throughout the app.
-// Without this, every handler would need a cast — this makes it type-safe globally.
+
 declare module "hono" {
   interface ContextVariableMap {
     user: JWTPayload;
@@ -12,13 +11,7 @@ declare module "hono" {
 }
 
 // ─── Auth Middleware ──────────────────────────────────────────────────────────
-// Responsibilities:
-//   1. Extract Bearer token from Authorization header
-//   2. Verify the JWT signature
-//   3. Attach the decoded payload (including role) to context
-//
-// It does NOT check roles — that's the job of rbac middleware.
-// Separation of concerns: auth = "who are you", rbac = "what can you do".
+
 
 export const authMiddleware = createMiddleware(async (c, next) => {
   const authHeader = c.req.header("Authorization");

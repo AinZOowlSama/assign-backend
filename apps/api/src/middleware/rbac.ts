@@ -2,7 +2,7 @@ import { createMiddleware } from "hono/factory";
 import { Role } from "@repo/types";
 
 // ─── RBAC Middleware ──────────────────────────────────────────────────────────
-// Usage:  app.post('/records', authMiddleware, rbac([Role.ADMIN, Role.ANALYST]), handler)
+
 
 
 export const rbac = (allowedRoles:readonly Role[]) =>
@@ -23,9 +23,7 @@ export const rbac = (allowedRoles:readonly Role[]) =>
   });
 
 // ─── Convenience Presets ──────────────────────────────────────────────────────
-// These make route definitions cleaner and self-documenting.
-// Instead of rbac([Role.ADMIN, Role.ANALYST, Role.VIEWER]) everywhere,
-// you write rbac(Roles.ALL) and the intent is immediately clear.
+
 
 export const Roles = {
   ADMIN_ONLY: [Role.ADMIN],

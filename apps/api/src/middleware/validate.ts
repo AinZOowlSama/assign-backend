@@ -2,14 +2,7 @@ import { createMiddleware } from "hono/factory";
 import type { ZodSchema } from "zod";
 
 // ─── Validate Middleware ──────────────────────────────────────────────────────
-// A generic middleware factory that accepts a Zod schema and validates
-// the request body against it. On failure it returns a structured 400
-// with field-level error details — never a raw Zod error object.
-//
-// Usage:
-//   app.post('/records', authMiddleware, validate(CreateRecordSchema), handler)
-//
-// After this middleware runs, c.get('validatedBody') is fully typed.
+
 
 declare module "hono" {
   interface ContextVariableMap {

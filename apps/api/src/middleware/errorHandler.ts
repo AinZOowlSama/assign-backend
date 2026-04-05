@@ -2,14 +2,7 @@ import type { Context } from "hono";
 import { Prisma } from "@repo/db";
 
 // ─── Global Error Handler ─────────────────────────────────────────────────────
-// Registered as app.onError(errorHandler) in index.ts.
-// Catches anything that bubbles up from routes/services and returns
-// a consistent response shape instead of leaking stack traces.
-//
-// Handles three categories:
-//   1. Known Prisma errors (constraint violations, not found, etc.)
-//   2. Generic application errors
-//   3. Truly unexpected errors (500)
+
 
 export const errorHandler = (err: Error, c: Context) => {
   console.error(`[ERROR] ${err.message}`, err.stack);
@@ -50,7 +43,7 @@ export const errorHandler = (err: Error, c: Context) => {
   }
 
   // ── Unexpected errors ──────────────────────────────────────────────────────
-  // Never expose internal error messages in production
+  
   const message =
     process.env.NODE_ENV === "development"
       ? err.message
@@ -60,11 +53,7 @@ export const errorHandler = (err: Error, c: Context) => {
 };
 
 // ─── AppError ────────────────────────────────────────────────────────────────
-// A custom error class that services can throw with an explicit HTTP status.
-// This keeps status code logic out of route handlers.
-//
-// Usage: throw new AppError('User not found', 404)
-//        throw new AppError('Insufficient permissions', 403)
+
 
 export class AppError extends Error {
   constructor(
