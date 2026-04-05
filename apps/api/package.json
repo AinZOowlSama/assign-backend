@@ -1,0 +1,30 @@
+{
+  "name": "@repo/api",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.12.0",
+    "@hono/swagger-ui": "^0.6.1",
+    "@hono/zod-openapi": "^1.2.4",
+    "@repo/db": "workspace:*",
+    "@repo/types": "workspace:*",
+    "@repo/validators": "workspace:*",
+    "bcryptjs": "^2.4.3",
+    "hono": "^4.4.0",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.0.0",
+    "tsx": "^4.11.0",
+    "typescript": "^5.4.0"
+  }
+}

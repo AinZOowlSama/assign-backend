@@ -1,0 +1,84 @@
+// This is your Prisma schema file.
+// Run `pnpm db:generate` after any changes to regenerate the client.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // For PostgreSQL swap to: provider = "postgresql"
+  // and update DATABASE_URL in .env accordingly.
+  // Prisma handles the rest — no other code changes needed.
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+// Note: SQLite does not support native enums. Prisma emulates them as strings
+// with validation. For PostgreSQL, these become real DB-level enums.
+
+enum Role {
+  VIEWER
+  ANALYST
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum RecordType {
+  INCOME
+  EXPENSE
+}
+
+// ─── User ─────────────────────────────────────────────────────────────────────
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String
+  password  String     // bcrypt hash — never store plaintext
+  role      Role       @default(VIEWER)
+  status    UserStatus @default(ACTIVE)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  // A user can create many financial records
+  records FinancialRecord[]
+
+  @@map("users")
+}
+
+// ─── Financial Record ─────────────────────────────────────────────────────────
+
+model FinancialRecord {
+  id        String     @id @default(cuid())
+  amount    Float      // stored in the base currency unit (e.g. INR, USD)
+  type      RecordType
+  category  String
+  date      DateTime
+  notes     String?    // optional free-text description
+
+  // Soft delete: records are never physically removed.
+  // This is critical for financial data — you always want an audit trail.
+  isDeleted   Boolean  @default(false)
+  deletedAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Track who created the record for audit purposes
+  createdById String
+  createdBy   User   @relation(fields: [createdById], references: [id])
+
+  // Indexes for the most common query patterns
+  @@index([type])
+  @@index([category])
+  @@index([date])
+  @@index([isDeleted])
+  @@index([createdById])
+
+  @@map("financial_records")
+}

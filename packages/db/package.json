@@ -1,0 +1,25 @@
+{
+  "name": "@repo/db",
+  "version": "0.0.1",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev --name migration",
+    "db:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "@repo/types": "workspace:*",
+    "bcrypt": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^2.4.3",
+    "prisma": "^5.14.0",
+    "ts-node": "^10.9.0",
+    "tsx": "^4.11.0"
+  }
+}
