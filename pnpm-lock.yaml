@@ -47,6 +47,9 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.3
+      tsx:
+        specifier: ^4.11.0
+        version: 4.21.0
       zod:
         specifier: ^3.25.76
         version: 3.25.76
@@ -60,9 +63,6 @@ importers:
       '@types/node':
         specifier: ^20.0.0
         version: 20.19.39
-      tsx:
-        specifier: ^4.11.0
-        version: 4.21.0
       typescript:
         specifier: ^5.4.0
         version: 5.9.3
