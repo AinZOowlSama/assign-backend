@@ -1,4 +1,4 @@
-
+// ─── Role Enum ───────────────────────────────────────────────────────────────
 export enum Role {
   VIEWER = "VIEWER",
   ANALYST = "ANALYST",
