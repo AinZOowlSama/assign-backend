@@ -4,6 +4,7 @@ export enum Role {
   ANALYST = "ANALYST",
   ADMIN = "ADMIN",
 }
+// 
 
 // ─── Record Type Enum ─────────────────────────────────────────────────────────
 export enum RecordType {
