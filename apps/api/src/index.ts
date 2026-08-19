@@ -35,7 +35,7 @@ app.use(
 );
 
 // ─── Health Check ──────────────────────────────────────────────────────────────
-app.get("/health", (c) =>
+app.get("/", (c) =>
   c.json({ success: true, message: "Finance API is running" })
 );
 
